@@ -34,8 +34,8 @@ function bienvenidaPersonalizada (nombresUsuario, apellidosUsuario) {
 
 function mostrarDatos (nombresUsuario, apellidosUsuario, edadUsuario) {
     const nodoPagina = document.querySelector('form');
-    const nuevoInput = document.createElement('p');
-    nodoPagina.appendChild(nuevoInput);
+    const nuevoParrafo = document.createElement('p');
+    nodoPagina.appendChild(nuevoParrafo);
     const datosAMostrar = `${nombresUsuario} ${apellidosUsuario}, ${edadUsuario} años.`;
-    return nuevoInput.textContent = datosAMostrar; 
+    return nuevoParrafo.textContent = datosAMostrar; 
 }
