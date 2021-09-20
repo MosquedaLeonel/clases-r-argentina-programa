@@ -7,8 +7,22 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <body>
+    <form id="tiempo-de-video" onsubmit="return false;">
+        <label>Horas que tiene el video:</label>
+        <input type="number" id="horas-de-video"/>
+        <label ><br>Minutos que tiene el video:</label>
+        <input type="number" id="minutos-de-video"/>
+        <label><br>Segundos que tiene el video:</label>
+        <input type="number" id="segundos-de-video"/>
+        <button type="button" id="ingreso-datos">Ingresar</button>
+    </form>
+    <button type="button" id="calculo-tiempo-total">Calcular tiempo total</button>
+    <input type="text" disabled id="campo-de-texto-resultado"/> 
+
     <script type="text/javascript" src='tarea-3.js'></script>
 </body>
 </html>
+
+
 
 
