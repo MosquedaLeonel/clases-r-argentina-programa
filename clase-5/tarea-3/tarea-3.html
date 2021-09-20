@@ -3,21 +3,71 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Tarea 3 de la Clase 5 de r/argentina-programa</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='tarea-3.css'>
+
 </head>
 <body>
-    <form id="tiempo-de-video" onsubmit="return false;">
-        <label>Horas que tiene el video:</label>
-        <input type="number" id="horas-de-video"/>
-        <label ><br>Minutos que tiene el video:</label>
-        <input type="number" id="minutos-de-video"/>
-        <label><br>Segundos que tiene el video:</label>
-        <input type="number" id="segundos-de-video"/>
-        <button type="button" id="ingreso-datos">Ingresar</button>
+    <h1 id="titulo">
+        r/argentina-programa<br>
+        <img id="logo" src="img/r_argentina_programa.jpg" alt="Logo de r/argentina-programa">
+    </h1>
+    <h2 id="subtitulo">
+        Calculadora de videos.
+        <p id="enunciado">Por cada clase de r/argentina programa existente, vamos a pedir:
+        horas, minutos y segundos de cada video. Ej. Si un video dura
+        2 horas, 38 minutos y 20 segundos, vamos a rellenar 3 campos de texto con
+        cada dato.
+        al apretar el botón "Calcular tiempo total", debe mostrar en un
+        strong pre-creado el tiempo total de los videos. </p>
+    </h2>
+    <form class="form" onsubmit="return false;">
+        <p class="clases">Clase 01</p>
+            <label> Horas:
+                <input type="number" id="horas-de-video-clase-uno"/>
+                Minutos:
+                <input type="number" id="minutos-de-video-clase-uno"/>
+                Segundos:
+                <input type="number" id="segundos-de-video-clase-uno"/>
+            </label>
+        <p class="clases">Clase 02</p>
+            <label> Horas:
+                <input type="number" id="horas-de-video-clase-dos"/>
+                Minutos:
+                <input type="number" id="minutos-de-video-clase-dos"/>
+                Segundos:
+                <input type="number" id="segundos-de-video-clase-dos"/>
+            </label>
+        <p class="clases">Clase 03</p>
+            <label> Horas:
+                <input type="number" id="horas-de-video-clase-tres"/>
+                Minutos:
+                <input type="number" id="minutos-de-video-clase-tres"/>
+                Segundos:
+                <input type="number" id="segundos-de-video-clase-tres"/>
+            </label>
+        <p class="clases">Clase 04</p>
+            <label> Horas:
+                <input type="number" id="horas-de-video-clase-cuatro"/>
+                Minutos:
+                <input type="number" id="minutos-de-video-clase-cuatro"/>
+                Segundos:
+                <input type="number" id="segundos-de-video-clase-cuatro"/>
+            </label>
+        <p class="clases">Clase 05</p>
+            <label> Horas:
+                <input type="number" id="horas-de-video-clase-cinco"/>
+                Minutos:
+                <input type="number" id="minutos-de-video-clase-cinco"/>
+                Segundos:
+                <input type="number" id="segundos-de-video-clase-cinco"/>
+            </label> 
     </form>
-    <button type="button" id="calculo-tiempo-total">Calcular tiempo total</button>
-    <input type="text" disabled id="campo-de-texto-resultado"/> 
+    <div class="contenedor">
+        <button type="button" id="calculo-tiempo-total">Calcular</button>
+            <input type="text" disabled id="campo-de-texto-resultado" placeholder="El tiempo total es de:"/>
+    </div>
 
     <script type="text/javascript" src='tarea-3.js'></script>
 </body>

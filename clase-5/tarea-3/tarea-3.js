@@ -6,60 +6,91 @@ cada dato.
 al apretar el botón "Calcular tiempo total", debe mostrar en un
 <strong> pre-creado el tiempo total de los videos. */ 
 
-const CANTIDAD_DE_VIDEOS = 2;
-let tiempoDeVideoTotalEnSegundos = [];
 
-const $ingresarTiempoDeVideo = document.querySelector('#ingreso-datos');
 const $calcularTiempoTotalDeVideos = document.querySelector('#calculo-tiempo-total');
-
-
-$ingresarTiempoDeVideo.onclick = function () {
-    const horasDeVideo = document.querySelector('#horas-de-video').value;
-    const minutosDeVideo = document.querySelector('#minutos-de-video').value;
-    const segundosDeVideo = document.querySelector('#segundos-de-video').value;
-    if (tiempoDeVideoTotalEnSegundos.length < CANTIDAD_DE_VIDEOS) {
-        guardarTiempo(horasDeVideo, minutosDeVideo, segundosDeVideo);
-        calculoDelTiempoEnSegundos(horasDeVideo, minutosDeVideo, segundosDeVideo);
-
-    }
-    return false;
-}
-
-
-function guardarTiempo (horasDeVideo, minutosDeVideo, segundosDeVideo) {
-    const nodoPagina = document.querySelector('form');
-    const nuevoParrafo = document.createElement('p');
-    const tiempoDeVideo = `${horasDeVideo}:${minutosDeVideo}:${segundosDeVideo}`;
-    nuevoParrafo.textContent = tiempoDeVideo;
-    nodoPagina.appendChild(nuevoParrafo);
-}
-
-function calculoDelTiempoEnSegundos (horasDeVideo, minutosDeVideo, segundosDeVideo) {
-    let horasASegundos = parseFloat(horasDeVideo * 3600);
-    let minutosASegundos = parseFloat(minutosDeVideo * 60);
-    let segundosTotalesDeVideo = parseFloat(segundosDeVideo) + minutosASegundos + horasASegundos;
-    if (tiempoDeVideoTotalEnSegundos.length < CANTIDAD_DE_VIDEOS) {
-        tiempoDeVideoTotalEnSegundos.push(segundosTotalesDeVideo);
-    }
-    
-}
-
-let resultadoEnSegundos = 0;
+const TIEMPOS_EN_SEGUNDOS = [];
+let sumaTotalSegundos = 0;
+let horasTotales, minutosTotales, segundosTotales;
+let resultadoFinal;
 
 $calcularTiempoTotalDeVideos.onclick = function () {
-    for (let i = 0; i < tiempoDeVideoTotalEnSegundos.length; i++) {
-        resultadoEnSegundos += tiempoDeVideoTotalEnSegundos[i];
-    }
-    pasajeDeSegundos(resultadoEnSegundos)
-    const nuevoCampo = document.querySelector('#campo-de-texto-resultado');
-    nuevoCampo.value = resultadoFinal;
+    const HORAS_DE_VIDEOS = [];
+    const MINUTOS_DE_VIDEOS = [];
+    const SEGUNDOS_DE_VIDEOS = [];
+    cargarTiempos(HORAS_DE_VIDEOS, MINUTOS_DE_VIDEOS, SEGUNDOS_DE_VIDEOS);
+    transformarTiemposASegundos(HORAS_DE_VIDEOS, MINUTOS_DE_VIDEOS, SEGUNDOS_DE_VIDEOS);
+    sumarSegundos(TIEMPOS_EN_SEGUNDOS);
+    transformarSegundosAUnidadesDeTiempo(sumaTotalSegundos);
+    mostrarResultadosConFormato24Horas();
+    resultadoFinal = `${horasTotales}:${minutosTotales}:${segundosTotales}`;
+    mostrarResultadoFinalEnPantalla();
     return false;
 }
-let horasTotales, minutosTotales, segundosTotales;
 
-function pasajeDeSegundos (resultadoEnSegundos) {
-    horasTotales = Math.floor(resultadoEnSegundos / 3600);
-    minutosTotales = Math.floor((resultadoEnSegundos % 3600) / 60);
-    segundosTotales = Math.floor(resultadoEnSegundos % 60);
-    return let = resultadoFinal = `${horasTotales}:${minutosTotales}:${segundosTotales}`;
+ 
+function cargarTiempos (HORAS_DE_VIDEOS, MINUTOS_DE_VIDEOS, SEGUNDOS_DE_VIDEOS) {
+    HORAS_DE_VIDEOS.push(Number(document.querySelector("#horas-de-video-clase-uno").value));
+    HORAS_DE_VIDEOS.push(Number(document.querySelector("#horas-de-video-clase-dos").value));
+    HORAS_DE_VIDEOS.push(Number(document.querySelector("#horas-de-video-clase-tres").value));
+    HORAS_DE_VIDEOS.push(Number(document.querySelector("#horas-de-video-clase-cuatro").value));
+    HORAS_DE_VIDEOS.push(Number(document.querySelector("#horas-de-video-clase-cinco").value));
+        
+    MINUTOS_DE_VIDEOS.push(Number(document.querySelector("#minutos-de-video-clase-uno").value));
+    MINUTOS_DE_VIDEOS.push(Number(document.querySelector("#minutos-de-video-clase-dos").value));
+    MINUTOS_DE_VIDEOS.push(Number(document.querySelector("#minutos-de-video-clase-tres").value));
+    MINUTOS_DE_VIDEOS.push(Number(document.querySelector("#minutos-de-video-clase-cuatro").value));
+    MINUTOS_DE_VIDEOS.push(Number(document.querySelector("#minutos-de-video-clase-cinco").value));
+
+    SEGUNDOS_DE_VIDEOS.push(Number(document.querySelector("#segundos-de-video-clase-uno").value));
+    SEGUNDOS_DE_VIDEOS.push(Number(document.querySelector("#segundos-de-video-clase-dos").value));
+    SEGUNDOS_DE_VIDEOS.push(Number(document.querySelector("#segundos-de-video-clase-tres").value));
+    SEGUNDOS_DE_VIDEOS.push(Number(document.querySelector("#segundos-de-video-clase-cuatro").value));
+    SEGUNDOS_DE_VIDEOS.push(Number(document.querySelector("#segundos-de-video-clase-cinco").value));
 }
+
+function transformarTiemposASegundos (HORAS_DE_VIDEOS, MINUTOS_DE_VIDEOS, SEGUNDOS_DE_VIDEOS) {
+    for (let horasEnSegundos of HORAS_DE_VIDEOS) {
+        TIEMPOS_EN_SEGUNDOS.push(parseFloat(horasEnSegundos * 3600));
+    }
+
+    for (let minutosEnSegundos of MINUTOS_DE_VIDEOS) {
+        TIEMPOS_EN_SEGUNDOS.push(parseFloat(minutosEnSegundos * 60));
+    }
+
+    for (let segundos of SEGUNDOS_DE_VIDEOS) {
+        TIEMPOS_EN_SEGUNDOS.push(parseFloat(segundos));
+    }
+
+}
+
+function sumarSegundos (TIEMPOS_EN_SEGUNDOS) {
+    for (let i of TIEMPOS_EN_SEGUNDOS) {
+        sumaTotalSegundos += i;
+    }
+}
+
+
+function transformarSegundosAUnidadesDeTiempo (sumaTotalSegundos) {
+    horasTotales = Math.floor(sumaTotalSegundos / 3600);
+    minutosTotales = Math.floor((sumaTotalSegundos % 3600) / 60);
+    segundosTotales = Math.floor(sumaTotalSegundos % 60);
+}
+
+function mostrarResultadosConFormato24Horas () {
+    if (horasTotales < 10) {
+        horasTotales = '0' + horasTotales;
+    }
+
+    if (minutosTotales < 10) {
+        minutosTotales = '0' + minutosTotales;
+    }
+
+    if (segundosTotales < 10) {
+        segundosTotales = '0' + segundosTotales;
+    }
+}
+
+function mostrarResultadoFinalEnPantalla () {
+    document.querySelector("#campo-de-texto-resultado").value = resultadoFinal;
+}
+
