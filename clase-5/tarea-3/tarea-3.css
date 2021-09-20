@@ -1,0 +1,68 @@
+#titulo {
+    text-align: center;
+    color: white;
+    font-size: 50px;
+}
+
+h2 {
+    text-align: left;
+    color: white;
+    font-size: 25px;
+}
+
+#enunciado {
+    font-size:  17px;
+}
+
+label {
+    color: white;
+    display: flex;
+    flex-direction: initial;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#logo {
+    width: 250px;
+    border-radius: 100%;
+    border: white;
+}
+.clases {
+    font-size: 20px;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.contenedor{
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    background-color: #0c0d0d;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#campo-de-texto-resultado {
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 16px 32px;
+    font-size: 16px;
+    text-align: center;
+
+}
+
+body {
+    background-color:#6ca4d4;;
+}
