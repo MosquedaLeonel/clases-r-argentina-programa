@@ -8,7 +8,7 @@ al apretar el botón "Calcular tiempo total", debe mostrar en un
 
 
 const $calcularTiempoTotalDeVideos = document.querySelector('#calculo-tiempo-total');
-const TIEMPOS_EN_SEGUNDOS = [];
+let tiemposEnSegundos = [];
 let sumaTotalSegundos = 0;
 let horasTotales, minutosTotales, segundosTotales;
 let resultadoFinal;
@@ -19,11 +19,12 @@ $calcularTiempoTotalDeVideos.onclick = function () {
     const SEGUNDOS_DE_VIDEOS = [];
     cargarTiempos(HORAS_DE_VIDEOS, MINUTOS_DE_VIDEOS, SEGUNDOS_DE_VIDEOS);
     transformarTiemposASegundos(HORAS_DE_VIDEOS, MINUTOS_DE_VIDEOS, SEGUNDOS_DE_VIDEOS);
-    sumarSegundos(TIEMPOS_EN_SEGUNDOS);
+    sumarSegundos(tiemposEnSegundos);
     transformarSegundosAUnidadesDeTiempo(sumaTotalSegundos);
     mostrarResultadosConFormato24Horas();
     resultadoFinal = `${horasTotales}:${minutosTotales}:${segundosTotales}`;
     mostrarResultadoFinalEnPantalla();
+    limpiarEstado();
     return false;
 }
 
@@ -50,21 +51,21 @@ function cargarTiempos (HORAS_DE_VIDEOS, MINUTOS_DE_VIDEOS, SEGUNDOS_DE_VIDEOS) 
 
 function transformarTiemposASegundos (HORAS_DE_VIDEOS, MINUTOS_DE_VIDEOS, SEGUNDOS_DE_VIDEOS) {
     for (let horasEnSegundos of HORAS_DE_VIDEOS) {
-        TIEMPOS_EN_SEGUNDOS.push(parseFloat(horasEnSegundos * 3600));
+        tiemposEnSegundos.push(parseFloat(horasEnSegundos * 3600));
     }
 
     for (let minutosEnSegundos of MINUTOS_DE_VIDEOS) {
-        TIEMPOS_EN_SEGUNDOS.push(parseFloat(minutosEnSegundos * 60));
+        tiemposEnSegundos.push(parseFloat(minutosEnSegundos * 60));
     }
 
     for (let segundos of SEGUNDOS_DE_VIDEOS) {
-        TIEMPOS_EN_SEGUNDOS.push(parseFloat(segundos));
+        tiemposEnSegundos.push(parseFloat(segundos));
     }
 
 }
 
-function sumarSegundos (TIEMPOS_EN_SEGUNDOS) {
-    for (let i of TIEMPOS_EN_SEGUNDOS) {
+function sumarSegundos (tiemposEnSegundos) {
+    for (let i of tiemposEnSegundos) {
         sumaTotalSegundos += i;
     }
 }
@@ -94,3 +95,7 @@ function mostrarResultadoFinalEnPantalla () {
     document.querySelector("#campo-de-texto-resultado").value = resultadoFinal;
 }
 
+function limpiarEstado () {
+    tiemposEnSegundos = [];
+    sumaTotalSegundos = 0;
+}
