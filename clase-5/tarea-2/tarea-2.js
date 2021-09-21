@@ -22,12 +22,12 @@ $ingresoDeDatos.onclick = function() {
     const nombresUsuario = document.querySelector('#nombres-usuario').value;
     const apellidosUsuario = document.querySelector('#apellidos-usuario').value;
     const edadUsuario = document.querySelector('#edad-usuario').value;
-    bienvenidaPersonalizada(nombresUsuario, apellidosUsuario);
+    personalizarBienvenida(nombresUsuario, apellidosUsuario);
     mostrarDatos(nombresUsuario, apellidosUsuario, edadUsuario);
     return false;
 }
 
-function bienvenidaPersonalizada (nombresUsuario, apellidosUsuario) {
+function personalizarBienvenida (nombresUsuario, apellidosUsuario) {
     const bienvenida = document.querySelector('h1');
     return bienvenida.textContent = `Hola, ${nombresUsuario} ${apellidosUsuario}!`;
 }
