@@ -54,15 +54,17 @@ button {
 }
 
 #campo-de-texto-resultado {
-    background-color: white;
-    border: none;
+    background-color: #6ca4d4;
     color: black;
     padding: 16px 32px;
-    font-size: 16px;
+    font-size: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
 
 }
 
 body {
-    background-color:#6ca4d4;;
+    background-color:#6ca4d4;
 }

@@ -92,7 +92,7 @@ function mostrarResultadosConFormato24Horas () {
 }
 
 function mostrarResultadoFinalEnPantalla () {
-    document.querySelector("#campo-de-texto-resultado").value = resultadoFinal;
+    document.querySelector("#campo-de-texto-resultado").textContent = resultadoFinal;
 }
 
 function limpiarEstado () {
