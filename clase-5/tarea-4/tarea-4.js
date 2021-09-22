@@ -10,6 +10,7 @@ let $botonCalcular = document.querySelector("#boton-calcular");
 const ARRAY = [];
 let tamanioArray;
 const RESULTADOS = [];
+let $logo = document.querySelector('img');
 
 $botonCalcular.onclick = function () {
     let lista = document.querySelector("#lista-de-numeros");
@@ -89,4 +90,8 @@ function cargarResultados (){
     document.querySelector("#numero-mas-pequenio").textContent = `El numero mas pequeño es ${RESULTADOS[1]}`;
     document.querySelector("#numero-mas-grande").textContent = `El numero mas grande es ${RESULTADOS[2]}`;
     document.querySelector("#numero-mas-frecuente").textContent = `El numero mas frecuente es ${RESULTADOS[3]}`;
+}
+
+$logo.onclick = function () {
+    location.reload();
 }

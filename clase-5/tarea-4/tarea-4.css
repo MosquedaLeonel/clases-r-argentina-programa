@@ -54,4 +54,7 @@ h2 {
     width: 250px;
     border-radius: 50%;
     border: white;
+    cursor: pointer;
 }
+
+
