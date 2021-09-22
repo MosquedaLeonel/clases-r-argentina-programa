@@ -1,0 +1,57 @@
+body {
+    background-color:#6ca4d4;
+}
+
+h2 {
+    text-align: left;
+    color: white;
+    font-size: 17px;
+}
+
+.contenedor {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    font-size: 21px;
+
+}
+
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#boton-calcular {
+    background-color: #0c0d0d;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    font-size: 16px;
+    cursor: pointer;;
+    
+}
+
+.respuestas {
+    color: rgb(0, 0, 0);
+    font-size: 25px;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    align-items: flex-end;
+
+}
+
+#titulo {
+    text-align: center;
+    color: white;
+    font-size: 50px;
+}
+
+#logo {
+    width: 250px;
+    border-radius: 50%;
+    border: white;
+}
