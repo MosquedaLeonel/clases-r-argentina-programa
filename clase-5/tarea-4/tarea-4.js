@@ -7,89 +7,91 @@ Convertir esos números a un array y:
 4. obtener el número que más se repite y mostrarlo en un <em> pre-creado con el texto "El número más frecuente es..." */
 
 let $botonCalcular = document.querySelector("#boton-calcular");
-const ARRAY = [];
-let tamanioArray;
-const RESULTADOS = [];
 let $logo = document.querySelector('img');
 
 $botonCalcular.onclick = function () {
-    let lista = document.querySelector("#lista-de-numeros");
-    let items = lista.querySelectorAll("li");
-    cargarDatosEnUnArray(items);
-    calcularPromedio()
-    buscarMinimo();
-    buscarMaximo();
-    buscarNumerosFrecuentes(ARRAY);
-    cargarResultados();
+    const items = document.querySelectorAll("li");
+    const numeros = extraerNumeros(items);
+    const promedios = calcularPromedio(numeros);
+    const minimo = buscarMinimo(numeros);
+    const maximo = buscarMaximo(numeros);
+    const numeroMasFrecuente = buscarNumeroMasFrecuente(numeros);
+    cargarResultados(promedios, minimo, maximo, numeroMasFrecuente);
 }
 
-function cargarDatosEnUnArray (items) {
+function extraerNumeros (items) {
+    const numeros = [];
     for (let i = 0; i < items.length; i++) {
-        ARRAY.push(Number(items[i].innerHTML));
+        numeros.push(Number(items[i].innerHTML));
     }
-    tamanioArray = ARRAY.length;
-    return ARRAY;
+    return numeros; 
 }
 
-function calcularPromedio () {
-    let resultadoPromedio = 0;
+function calcularPromedio (numeros) {
+    let promedios = 0;
 
-    for (let item of ARRAY) {
-        resultadoPromedio += item;
+    for (let item of numeros) {
+        promedios += item;
     }
-    resultadoPromedio /= tamanioArray;
+    promedios /= numeros.length;
 
-    return RESULTADOS.push(resultadoPromedio);
+    return promedios;
 }
 
-function buscarMinimo () {
-    let min = ARRAY[0];
+function buscarMinimo (numeros) {
+    let minimo = numeros[0];
 
-    for (let i = 0; i < tamanioArray; i++) {
-        if (ARRAY[i] <= min) {
-            min = ARRAY[i]
+    for (let i = 0; i < numeros.length; i++) {
+        if (numeros[i] <= minimo) {
+            minimo = numeros[i]
         }
     }
     
-    return RESULTADOS.push(min);
+    return minimo;
 }
 
-function buscarMaximo () {
-    let max = ARRAY[0];
+function buscarMaximo (numeros) {
+    let maximo = numeros[0];
 
-    for(let i = 0; i < tamanioArray; i++) {
-        if (ARRAY[i] >= max) {
-          max = ARRAY[i];
+    for(let i = 0; i < numeros.length; i++) {
+        if (numeros[i] >= maximo) {
+          maximo = numeros[i];
         }
     }
 
-    return RESULTADOS.push(max);
+    return maximo;
 }
 
 
-function buscarNumerosFrecuentes(ARRAY) {
-    let numeroFrecuente;
+function buscarNumeroMasFrecuente(numeros) {
+    let numeroMasFrecuente = 0;
     
+    for (let i = 0; i < numeros.length; i++) {
+        let contador = 0
+        let frecuenciaDeRepeticion = 0;
 
-    for (let i = 0; i < tamanioArray; i++) {
-
-        for (let j = 0; j < tamanioArray; j++) {
+        for (let j = 0; j < numeros.length; j++) {
             if (i !== j) {
-                if (ARRAY[i] == ARRAY[j]) {
-                    numeroFrecuente = ARRAY[i];
+                if (numeros[i] === numeros[j]) {
+                    contador++;
                 }
             }
         }
-       }
 
-    RESULTADOS.push(numeroFrecuente);
+        if (contador > frecuenciaDeRepeticion) {
+            numeroMasFrecuente = numeros[i];
+            frecuenciaDeRepeticion = contador;
+        }
+    }
+
+    return numeroMasFrecuente;
 }
 
-function cargarResultados (){
-    document.querySelector("#promedio").textContent = `El promedio es ${RESULTADOS[0]}`;
-    document.querySelector("#numero-mas-pequenio").textContent = `El numero mas pequeño es ${RESULTADOS[1]}`;
-    document.querySelector("#numero-mas-grande").textContent = `El numero mas grande es ${RESULTADOS[2]}`;
-    document.querySelector("#numero-mas-frecuente").textContent = `El numero mas frecuente es ${RESULTADOS[3]}`;
+function cargarResultados (promedios, minimo, maximo, numeroMasFrecuente) {
+    document.querySelector("#promedio").textContent = `El promedio es ${promedios}`;
+    document.querySelector("#numero-mas-pequenio").textContent = `El numero mas pequeño es ${minimo}`;
+    document.querySelector("#numero-mas-grande").textContent = `El numero mas grande es ${maximo}`;
+    document.querySelector("#numero-mas-frecuente").textContent = `El numero mas frecuente es ${numeroMasFrecuente}`;
 }
 
 $logo.onclick = function () {
