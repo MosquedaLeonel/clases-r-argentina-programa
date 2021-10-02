@@ -663,14 +663,162 @@ function desafioDeProgramacion29 () {
 
 // desafioDeProgramacion29();
 
+/* Desafío de programación #30-a: Create a function that will add two positive numbers of indefinite size. The numbers are received 
+as strings and the result should be also provided as string. */
+
+function desafioDeProgramacion30_a () {
+  let numero1 = '15191919819158169165641651654';
+  console.log(numero1);
+  let numero2 = '6516698479456164199865161651616123';
+  console.log(numero2);
+
+  if (numero1.length < numero2.length) {
+      numero1 = igualarCantidadDeCifras(numero1, numero2);
+  }
+  if (numero2.length < numero1.length) {
+      numero2 = igualarCantidadDeCifras(numero2, numero1);
+  }
+
+
+  resultadoSuma = sumar(numero1, numero2)
+  console.log(resultadoSuma);
+
+  function igualarCantidadDeCifras (numero1, numero2) {
+      for (let i = 0; i < numero2.length; i++) {
+          if (numero1.length < numero2.length) {
+              numero1 = '0' + numero1;
+          }
+      }
+
+      return numero1;
+
+  }
+
+  function sumar(numero1, numero2) {
+      let resultadoSuma = '';
+      let meLlevo = 0;
+
+      for (let i = numero1.length; i > 0; i--) {
+          let n1 = Number(numero1[i - 1]);
+          let n2 = Number(numero2[i - 1]);
+          let suma = n1 + n2 + meLlevo;
+          let sumaDeDigitos = suma % 10;
+          meLlevo = suma >= 10 ? 1 : 0;
+          resultadoSuma = sumaDeDigitos.toString() + resultadoSuma;
+      }
+
+      if(meLlevo > 0) {
+          resultadoSuma = meLlevo + resultadoSuma;
+      }
+      return resultadoSuma;
+  }
+
+}
+
+// desafioDeProgramacion30_a ();
+
+
+
+/* Desafío de programación #30-b: Create a function that will add two positive numbers of indefinite size.
+ The numbers are received as strings and the result should be also provided as string. */
+/* Desafío de programación #31-a. Create a function that will return the number of words in a text */
+
+function desafioDeProgramacion31_a () {
+    let texto = 'La razon de cambio de la temperatura de un cuerpo con respecto al tiempo t es proporcional a la diferencia entre la temperatura A del medio ambiente y la temperatura T del cuerpo.';
+    let numeroDePalabrasEnTexto = obtenerNumeroDePalabras(texto);
+    console.log(numeroDePalabrasEnTexto);
+
+    function obtenerNumeroDePalabras(texto) {
+        let separacionDePalabras = ' '; 
+        let contador = 0;
+
+        for (let i = 0; i < texto.length; i++) {
+            if (texto[i] === separacionDePalabras || texto[i] === texto[texto.length - 1]) {
+                contador++;
+            }
+        }
+
+        return contador;
+    }
+}
+
+// desafioDeProgramacion31_a();
+
+/* Desafío de programación #31-b. Create a function that will return the number of words in a text */
+
+/* Desafío de programación #32. Create a function that will capitalize the first letter of each word in a text */
+
+function desafioDeProgramacion32 () {
+  let texto = 'la razon de cambio de la temperatura de un cuerpo con respecto al tiempo t es proporcional a la diferencia entre la temperatura A del medio ambiente y la temperatura T del cuerpo.';
+  console.log(texto);
+  let textoModificado = reemplazarPrimeraLetra (texto);
+  console.log(textoModificado);
+
+  function reemplazarPrimeraLetra (texto) {
+      let textoModificado = '';
+      let array = [];
+
+      for (let i = 0; i < texto.length; i++) {
+          array.push(texto[i]);
+      }
+      for (let j = 0; j < array.length; j++) {
+          if (j === 0) {
+              array[j] = array[j].toUpperCase();
+              textoModificado += array[j]; 
+          } else if (array[j - 1] === ' ') {
+              array[j] = array[j].toUpperCase();
+              textoModificado += array[j]
+          } else {
+              textoModificado += array[j];
+          }
+      }
+      
+      return textoModificado;
+  }
+}
+
+// desafioDeProgramacion32();
+
+/* Desafío de programación #33. Calculate the sum of numbers received in a comma delimited string */
+
+function desafioDeProgramacion33 () {
+  let numeros = '1.2, 15.2, 64.5, 6.64, 55.5, 1.8';
+  let coma = ',';
+  let arrayNumeros = numeros.split([coma]);
+  let suma = calcularSuma(arrayNumeros);
+  console.log(suma);
+
+  function calcularSuma(array) {
+      let suma = 0;
+
+      for (let elemento of array) {
+          suma += parseFloat(elemento);
+      }
+      return suma;
+  }
+
+}
+
+// desafioDeProgramacion33();
+
 /*
-Desafío de programación #30-a: Create a function that will add two positive numbers of indefinite size. The numbers are received as strings and the result should be also provided as string.
-Desafío de programación #30-b: Create a function that will add two positive numbers of indefinite size. The numbers are received as strings and the result should be also provided as string.
-Desafío de programación #31-a. Create a function that will return the number of words in a text
-Desafío de programación #31-b. Create a function that will return the number of words in a text
-Desafío de programación #32. Create a function that will capitalize the first letter of each word in a text
-Desafío de programación #33. Calculate the sum of numbers received in a comma delimited string
-Desafío de programación #34. Create a function that will return an array with words inside a text
+Desafío de programación #34. Create a function that will return an array with words inside a text */
+
+function desafioDeProgramacion34 (){
+  let texto = 'Create a function that will return an array with words inside a text.';
+  let array = convertirTextoEnArray(texto);
+  console.log(array);
+
+  function convertirTextoEnArray(texto) {
+    let array = [];
+    array = texto.split(' ');
+    return array;
+  }
+}
+
+// desafioDeProgramacion34();
+
+/*
 Desafío de programación #35. Create a function to convert a CSV text to a “bi-dimensional” array
 Desafío de programación #36. Create a function that converts a string to an array of characters
 Desafío de programación #37. Create a function that will convert a string in an array containing the ASCII codes of each character
