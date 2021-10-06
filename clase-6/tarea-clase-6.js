@@ -16,8 +16,8 @@ let $h1= document.querySelector("h1");
 
 
 $botonIngresar.onclick = function () {
-    let cantidadGrupoFamiliar = document.querySelector("#cantidad-grupo-familiar").value;
-    agregarGrupoFamiliar(Number(cantidadGrupoFamiliar));
+    let $cantidadGrupoFamiliar = document.querySelector("#cantidad-grupo-familiar").value;
+    agregarGrupoFamiliar(Number($cantidadGrupoFamiliar));
     let $botonCalcular = document.querySelector("#boton-calcular");
 
     $botonCalcular.onclick = function () {
@@ -37,36 +37,34 @@ $botonIngresar.onclick = function () {
 }
 
 $botonResetear.onclick = function () {
-    let botonIngresar = document.querySelector("#boton-ingresar");
+    let $botonIngresar = document.querySelector("#boton-ingresar");
 
-    let div = document.querySelectorAll("#inputs-labels");
-    for (let elemento of div) {
+    let $div = document.querySelectorAll("#inputs-labels");
+    for (let elemento of $div) {
         elemento.remove();
     }
 
-    let botonCalcular = document.querySelectorAll("#boton-calcular")
-    for (let elemento of botonCalcular) {
+    let $botonCalcular = document.querySelectorAll("#boton-calcular")
+    for (let elemento of $botonCalcular) {
         elemento.remove();
     }
 
-    let respuestaMayorEdad = document.querySelector("#respuesta-mayor-edad");
-    respuestaMayorEdad.textContent = undefined;
-    let respuestaMenorEdad = document.querySelector("#respuesta-menor-edad");
-    respuestaMenorEdad.textContent = undefined;
-    let respuestaPromedio = document.querySelector("#respuesta-promedio-edad");
-    respuestaPromedio.textContent = undefined;
+    let $respuestaMayorEdad = document.querySelector("#respuesta-mayor-edad");
+    $respuestaMayorEdad.textContent = undefined;
+    let $respuestaMenorEdad = document.querySelector("#respuesta-menor-edad");
+    $respuestaMenorEdad.textContent = undefined;
+    let $respuestaPromedio = document.querySelector("#respuesta-promedio-edad");
+    $respuestaPromedio.textContent = undefined;
 
-    botonIngresar.removeAttribute("disabled");
-
-    
+    $botonIngresar.removeAttribute("disabled");
 
     return false;
 }
 
 function obtenerEdades () {
-    let edades = document.querySelectorAll("#edad-grupo-familiar");
+    let $edades = document.querySelectorAll("#edad-grupo-familiar");
     let edadesGrupoFamiliar = [];
-    for (let edad of edades) {
+    for (let edad of $edades) {
         edadesGrupoFamiliar.push(edad.valueAsNumber);
     }
     grupoFamiliar.edad = edadesGrupoFamiliar;
@@ -75,9 +73,9 @@ function obtenerEdades () {
 
 
 function obtenerParentescos() {
-    let parentescos = document.querySelectorAll("#parentesco");
+    let $parentescos = document.querySelectorAll("#parentesco");
     let parentescosGrupoFamiliar = [];
-    for (let parentesco of parentescos) {
+    for (let parentesco of $parentescos) {
         parentescosGrupoFamiliar.push(parentesco.value);
     }
     grupoFamiliar.parentesco = parentescosGrupoFamiliar;
@@ -98,12 +96,12 @@ function agregarGrupoFamiliar (cantidad) {
 
 function agregarNuevosCampos (i) {
 
-    let form = document.querySelector("#edades");
+    let $form = document.querySelector("#edades");
 
     let div = document.createElement("div");
     div.setAttribute("id", "inputs-labels");
 
-    form.appendChild(div);
+    $form.appendChild(div);
 
     let labelParentesco = document.createElement("label");
     labelParentesco.textContent = `Ingrese parentesco de persona ${i + 1}: `;
@@ -129,12 +127,12 @@ function agregarNuevosCampos (i) {
 }
 
 function agregarBotonCalcular () {
-    let boton = document.querySelector("#boton");
+    let $boton = document.querySelector("#boton");
     let botonCalcular = document.createElement("button");
     botonCalcular.textContent = 'Calcular';
     botonCalcular.setAttribute("type", "button");
     botonCalcular.setAttribute("id", "boton-calcular");
-    boton.appendChild(botonCalcular);
+    $boton.appendChild(botonCalcular);
 }
 
 function hallarEdadMaxima (edades) {
@@ -176,14 +174,14 @@ function mostrarResultadosEnPantalla(mayorEdad, menorEdad, promedioDeEdad, edade
     let indiceMayorEdad = edadesGrupoFamiliar.indexOf(mayorEdad);
     let indiceMenorEdad = edadesGrupoFamiliar.indexOf(menorEdad);
 
-    let respuestaMayorEdad = document.querySelector("#respuesta-mayor-edad");
-    respuestaMayorEdad.textContent = `Tu ${parentescosGrupoFamiliar[indiceMayorEdad].toLowerCase()} tiene la mayor edad de tu grupo familiar con ${mayorEdad} años.`;
+    let $respuestaMayorEdad = document.querySelector("#respuesta-mayor-edad");
+    $respuestaMayorEdad.textContent = `Tu ${parentescosGrupoFamiliar[indiceMayorEdad].toLowerCase()} tiene la mayor edad de tu grupo familiar con ${mayorEdad} años.`;
 
-    let respuestaMenorEdad = document.querySelector("#respuesta-menor-edad");
-    respuestaMenorEdad.textContent = `Tu ${parentescosGrupoFamiliar[indiceMenorEdad].toLowerCase()} tiene la menor edad de tu grupo familiar con ${menorEdad} años.`;
+    let $respuestaMenorEdad = document.querySelector("#respuesta-menor-edad");
+    $respuestaMenorEdad.textContent = `Tu ${parentescosGrupoFamiliar[indiceMenorEdad].toLowerCase()} tiene la menor edad de tu grupo familiar con ${menorEdad} años.`;
     
-    let respuestaPromedio = document.querySelector("#respuesta-promedio-edad");
-    respuestaPromedio.textContent = `El promedio de edad de tu grupo familiar es de ${promedioDeEdad}`;
+    let $respuestaPromedio = document.querySelector("#respuesta-promedio-edad");
+    $respuestaPromedio.textContent = `El promedio de edad de tu grupo familiar es de ${promedioDeEdad}`;
 }
 
 function stateHandle() {
@@ -196,22 +194,22 @@ function stateHandle() {
 
 
 function deshabilitarBotonCalcular() {
-let input = document.querySelector("#edad-grupo-familiar");
-let boton = document.querySelector("#boton-calcular");
+    let $input = document.querySelector("#edad-grupo-familiar");
+    let $boton = document.querySelector("#boton-calcular");
 
-boton.disabled = true;
+    $boton.disabled = true;
 
-input.addEventListener("change", stateHandle);
+    $input.addEventListener("change", stateHandle);
 
 }
 
 function deshabilitarBotonIngresar() {
-    let input = document.querySelector("#cantidad-grupo-familiar");
-    let boton = document.querySelector("#boton-ingresar");
+    let $input = document.querySelector("#cantidad-grupo-familiar");
+    let $boton = document.querySelector("#boton-ingresar");
 
-    boton.disabled = true;
+    $boton.disabled = true;
 
-    input.addEventListener("change", stateHandle);
+    $input.addEventListener("change", stateHandle);
 }
 
 $h1.onclick = function () {
