@@ -1,0 +1,25 @@
+#pregunta-grupo-familiar {
+    display: flex;
+    justify-content: center;
+    text-align: center  ;
+}
+
+#campos-a-llenar {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#respuestas {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+#boton {
+    display: flex;
+    justify-content: center;
+}
+
