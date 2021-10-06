@@ -1,12 +1,88 @@
+body {
+    background-color: #6ca4d4;
+}
+h1 {
+    width: 200px;
+    border-radius: 50px;
+    color: white;
+    background-color: #1e88e5;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+#cantidad-grupo-familiar, #parentesco, #edad-grupo-familiar {
+    background-color: #1e88e5;
+    color: white;
+    border-radius: 32px;
+    border: none;
+    width: 96px;
+    height: 24px;
+    text-align: center;
+    margin: 0px 96px 0px 48px;
+}
+
+#cantidad-grupo-familiar:hover, #parentesco:hover, #edad-grupo-familiar:hover {
+    background-color: white;
+    color: black;
+    transition-duration: 0.4s;
+}
+
+#cantidad-grupo-familiar:focus, #parentesco:focus, #edad-grupo-familiar:focus {
+    background-color: white;
+    color: black;
+}
+
+
+#boton-ingresar,#boton-resetear,#boton-calcular {
+    font-size: 12px;
+    background-color: #6ca4d4;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    padding: 14px 26px;
+    border-radius: 32px;
+    margin: 0px 20px 0px 20px;
+    transition-duration: 0.4s;
+}
+
+#boton-ingresar:hover,#boton-resetear:hover, #boton-calcular:hover{
+    background-color: #008CBA;
+    color: white;
+}
+
 #pregunta-grupo-familiar {
     display: flex;
     justify-content: center;
-    text-align: center  ;
+    text-align: center;
+    margin-bottom: 36px;
+
+}
+
+#parentesco,#edad-grupo-familiar {
+    width: 192px;
+    height: 24px;
+    margin-right: 50px;
+}
+
+#inputs-labels {
+    margin-bottom: 12px;
 }
 
 #campos-a-llenar {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    margin: 26px;
 }
 
 #respuestas {

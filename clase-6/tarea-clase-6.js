@@ -12,11 +12,12 @@ let grupoFamiliar = {
 };
 let $botonIngresar = document.querySelector("#boton-ingresar");
 let $botonResetear = document.querySelector("#boton-resetear");
+let $h1= document.querySelector("h1");
 
 
 $botonIngresar.onclick = function () {
-    let cantidadGrupoFamiliar = document.querySelector("#cantidad-grupo-familiar").valueAsNumber;
-    agregarGrupoFamiliar(cantidadGrupoFamiliar);
+    let cantidadGrupoFamiliar = document.querySelector("#cantidad-grupo-familiar").value;
+    agregarGrupoFamiliar(Number(cantidadGrupoFamiliar));
     let $botonCalcular = document.querySelector("#boton-calcular");
 
     $botonCalcular.onclick = function () {
@@ -26,14 +27,17 @@ $botonIngresar.onclick = function () {
         let menorEdad = hallarEdadMinima(edadesGrupoFamiliar);
         let promedioDeEdad = calcularPromedio(edadesGrupoFamiliar);
         mostrarResultadosEnPantalla(mayorEdad, menorEdad, promedioDeEdad, edadesGrupoFamiliar, parentescosGrupoFamiliar);
+        deshabilitarBotonCalcular();
         return false;
     }
+    
+    deshabilitarBotonIngresar();
     return false;
 
 }
 
 $botonResetear.onclick = function () {
-    let cantidadGrupoFamiliar = document.querySelector("#cantidad-grupo-familiar");
+    let botonIngresar = document.querySelector("#boton-ingresar");
 
     let div = document.querySelectorAll("#inputs-labels");
     for (let elemento of div) {
@@ -45,12 +49,16 @@ $botonResetear.onclick = function () {
         elemento.remove();
     }
 
-    let respuestas = document.querySelectorAll(".respuesta");
-    for (let respuesta of respuestas) {
-        respuesta.remove();
-    }
+    let respuestaMayorEdad = document.querySelector("#respuesta-mayor-edad");
+    respuestaMayorEdad.textContent = undefined;
+    let respuestaMenorEdad = document.querySelector("#respuesta-menor-edad");
+    respuestaMenorEdad.textContent = undefined;
+    let respuestaPromedio = document.querySelector("#respuesta-promedio-edad");
+    respuestaPromedio.textContent = undefined;
 
-    cantidadGrupoFamiliar.value = 0;
+    botonIngresar.removeAttribute("disabled");
+
+    
 
     return false;
 }
@@ -111,13 +119,12 @@ function agregarNuevosCampos (i) {
     inputEdad.setAttribute("id", "edad-grupo-familiar");
     inputEdad.setAttribute("placeholder", "por ejemplo, 21");
 
-    let br = document.createElement("br");
     
     div.appendChild(labelParentesco);
     labelParentesco.appendChild(inputParentesco);
     div.appendChild(labelEdad);
     labelEdad.appendChild(inputEdad);
-    labelEdad.appendChild(br);
+
 
 }
 
@@ -169,26 +176,50 @@ function mostrarResultadosEnPantalla(mayorEdad, menorEdad, promedioDeEdad, edade
     let indiceMayorEdad = edadesGrupoFamiliar.indexOf(mayorEdad);
     let indiceMenorEdad = edadesGrupoFamiliar.indexOf(menorEdad);
 
-    let respuestas = document.querySelector("#respuestas");
-
-    let respuestaMayorEdad = document.createElement("label");
+    let respuestaMayorEdad = document.querySelector("#respuesta-mayor-edad");
     respuestaMayorEdad.textContent = `Tu ${parentescosGrupoFamiliar[indiceMayorEdad].toLowerCase()} tiene la mayor edad de tu grupo familiar con ${mayorEdad} años.`;
-    respuestaMayorEdad.setAttribute("class", "respuesta");
-    respuestas.appendChild(respuestaMayorEdad);
 
-    let respuestaMenorEdad = document.createElement("label");
+    let respuestaMenorEdad = document.querySelector("#respuesta-menor-edad");
     respuestaMenorEdad.textContent = `Tu ${parentescosGrupoFamiliar[indiceMenorEdad].toLowerCase()} tiene la menor edad de tu grupo familiar con ${menorEdad} años.`;
-    respuestaMenorEdad.setAttribute("class", "respuesta");
-    respuestas.appendChild(respuestaMenorEdad);
-
-    let respuestaPromedio = document.createElement("label");
+    
+    let respuestaPromedio = document.querySelector("#respuesta-promedio-edad");
     respuestaPromedio.textContent = `El promedio de edad de tu grupo familiar es de ${promedioDeEdad}`;
-    respuestaPromedio.setAttribute("class", "respuesta");
-    respuestas.appendChild(respuestaPromedio);
+}
+
+function stateHandle() {
+    if (document.querySelector(".input").value === "") {
+      button.disabled = true; 
+    } else {
+      button.disabled = false;
+    }
 }
 
 
+function deshabilitarBotonCalcular() {
+let input = document.querySelector("#edad-grupo-familiar");
+let boton = document.querySelector("#boton-calcular");
+
+boton.disabled = true;
+
+input.addEventListener("change", stateHandle);
+
+}
+
+function deshabilitarBotonIngresar() {
+    let input = document.querySelector("#cantidad-grupo-familiar");
+    let boton = document.querySelector("#boton-ingresar");
+
+    boton.disabled = true;
+
+    input.addEventListener("change", stateHandle);
+}
+
+$h1.onclick = function () {
+    location.reload();
+    return false;
+}
 /*
+
 TAREA:
 Crear una interfaz que permita agregar ó quitar (botones agregar y quitar) inputs+labels para completar el salario anual de cada integrante 
 de la familia que trabaje.
@@ -197,5 +228,6 @@ salario mensual promedio.
 
 Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como 0).
 */
+
 
 
