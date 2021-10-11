@@ -5,61 +5,79 @@ Al hacer click en "calcular", mostrar en un elemento pre-existente la mayor edad
 
 Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuevamente, borrando los inputs ya creados (investigar cómo en MDN).
 */
+let parentescosGrupoFamiliar = [];
+let edadesGrupoFamiliar = [];
+let salarioGrupoFamiliar = [];
 
-let grupoFamiliar = {
-    parentesco: [],
-    edad: []
-};
 let $botonIngresar = document.querySelector("#boton-ingresar");
 let $botonResetear = document.querySelector("#boton-resetear");
 let $h1= document.querySelector("h1");
 
 
-$botonIngresar.onclick = function () {
-    let $cantidadGrupoFamiliar = document.querySelector("#cantidad-grupo-familiar").value;
-    agregarGrupoFamiliar(Number($cantidadGrupoFamiliar));
-    let $botonCalcular = document.querySelector("#boton-calcular");
 
-    $botonCalcular.onclick = function () {
-        let edadesGrupoFamiliar = obtenerEdades();
-        let parentescosGrupoFamiliar = obtenerParentescos();
-        let mayorEdad = hallarEdadMaxima(edadesGrupoFamiliar);
-        let menorEdad = hallarEdadMinima(edadesGrupoFamiliar);
-        let promedioDeEdad = calcularPromedio(edadesGrupoFamiliar);
-        mostrarResultadosEnPantalla(mayorEdad, menorEdad, promedioDeEdad, edadesGrupoFamiliar, parentescosGrupoFamiliar);
-        deshabilitarBotonCalcular();
-        return false;
-    }
-    
-    deshabilitarBotonIngresar();
+
+
+$botonIngresar.onclick = function () {
+    let $cantidadGrupoFamiliar = document.querySelector("#cantidad-grupo-familiar");
+    deshabilitarBoton("cantidad-grupo-familiar", "boton-ingresar");
+    agregarGrupoFamiliar($cantidadGrupoFamiliar.valueAsNumber);
+    calcularEdades();
+
     return false;
 
 }
 
+
+
+
+
 $botonResetear.onclick = function () {
     let $botonIngresar = document.querySelector("#boton-ingresar");
 
-    let $div = document.querySelectorAll("#inputs-labels");
-    for (let elemento of $div) {
-        elemento.remove();
+    let $cantidadGrupoFamiliar = document.querySelector("#cantidad-grupo-familiar");
+    $cantidadGrupoFamiliar.value = '';
+
+    let $divEdades = document.querySelectorAll("#labels-inputs-edades");
+    for (let edad of $divEdades) {
+        edad.remove();
     }
 
-    let $botonCalcular = document.querySelectorAll("#boton-calcular")
-    for (let elemento of $botonCalcular) {
-        elemento.remove();
+    let $divSalarios = document.querySelectorAll("#labels-inputs-salarios");
+    for (let salario of $divSalarios) {
+        salario.remove();
     }
+
+    let $botonCalcularEdad = document.querySelector("#boton-calcular-edad");
+    $botonCalcularEdad.remove();
+
+    let $botonCalcularSalario = document.querySelector("#boton-calcular-salario");
+    $botonCalcularSalario.remove();
+
+    let $botonIngresarSalario = document.querySelector("#boton-ingresar-salario");
+    $botonIngresarSalario.remove();
 
     let $respuestaMayorEdad = document.querySelector("#respuesta-mayor-edad");
     $respuestaMayorEdad.textContent = undefined;
     let $respuestaMenorEdad = document.querySelector("#respuesta-menor-edad");
     $respuestaMenorEdad.textContent = undefined;
-    let $respuestaPromedio = document.querySelector("#respuesta-promedio-edad");
-    $respuestaPromedio.textContent = undefined;
+    let $respuestaPromedioEdad = document.querySelector("#respuesta-promedio-edad");
+    $respuestaPromedioEdad.textContent = undefined;
+
+    let $respuestaMayorSalario = document.querySelector("#respuesta-mayor-salario");
+    $respuestaMayorSalario.textContent = undefined;
+    let $respuestaMenorSalario = document.querySelector("#respuesta-menor-salario");
+    $respuestaMenorSalario.textContent = undefined;
+    let $respuestaPromedioSalario = document.querySelector("#respuesta-promedio-salario");
+    $respuestaPromedioSalario.textContent = undefined;
 
     $botonIngresar.removeAttribute("disabled");
 
     return false;
 }
+
+
+
+
 
 function obtenerEdades () {
     let $edades = document.querySelectorAll("#edad-grupo-familiar");
@@ -67,9 +85,11 @@ function obtenerEdades () {
     for (let edad of $edades) {
         edadesGrupoFamiliar.push(edad.valueAsNumber);
     }
-    grupoFamiliar.edad = edadesGrupoFamiliar;
     return edadesGrupoFamiliar;
 }
+
+
+
 
 
 function obtenerParentescos() {
@@ -77,16 +97,18 @@ function obtenerParentescos() {
     let parentescosGrupoFamiliar = [];
     for (let parentesco of $parentescos) {
         parentescosGrupoFamiliar.push(parentesco.value);
-    }
-    grupoFamiliar.parentesco = parentescosGrupoFamiliar;
+    }   
     return parentescosGrupoFamiliar;
 }
+
+
+
 
 
 function agregarGrupoFamiliar (cantidad) {
     for (let i = 0; i < cantidad; i++) {
         if (i < cantidad) {
-            agregarNuevosCampos(i);
+            agregarNuevoFamiliar(i);
         }
         if (i === Number(cantidad) - 1) {
             agregarBotonCalcular();
@@ -94,73 +116,114 @@ function agregarGrupoFamiliar (cantidad) {
     }
 }
 
-function agregarNuevosCampos (i) {
+
+
+
+
+function calcularEdades () {
+
+    let $botonCalcular = document.querySelector("#boton-calcular-edad");
+
+
+    $botonCalcular.onclick = function () {
+        parentescosGrupoFamiliar = obtenerParentescos();
+        edadesGrupoFamiliar = obtenerEdades();
+
+        deshabilitarBoton("edad-grupo-familiar", "boton-calcular-edad");
+
+        let mayorEdad = hallarMaximo(edadesGrupoFamiliar);
+        let menorEdad = hallarMinimo(edadesGrupoFamiliar);
+        let promedioDeEdad = calcularPromedio(edadesGrupoFamiliar);
+        mostrarResultados(mayorEdad, menorEdad, promedioDeEdad, edadesGrupoFamiliar, parentescosGrupoFamiliar);
+
+        return false;
+    }
+}
+
+
+
+
+
+function agregarNuevoFamiliar (i) {
 
     let $form = document.querySelector("#edades");
 
     let div = document.createElement("div");
-    div.setAttribute("id", "inputs-labels");
+    div.id = "labels-inputs-edades";
 
     $form.appendChild(div);
 
     let labelParentesco = document.createElement("label");
     labelParentesco.textContent = `Ingrese parentesco de persona ${i + 1}: `;
     let inputParentesco = document.createElement("input");
-    inputParentesco.setAttribute("type", "text");
-    inputParentesco.setAttribute("id", "parentesco");
-    inputParentesco.setAttribute("placeholder", "por ejemplo, Madre");
+    inputParentesco.type = "text";
+    inputParentesco.id = 'parentesco';
+    inputParentesco.placeholder = 'por ejemplo: Madre';
 
     let labelEdad = document.createElement("label");
     labelEdad.textContent = `Ingrese edad de persona ${i + 1}: `;
     let inputEdad = document.createElement("input");
-    inputEdad.setAttribute("type", "number");
-    inputEdad.setAttribute("id", "edad-grupo-familiar");
-    inputEdad.setAttribute("placeholder", "por ejemplo, 21");
-
+    inputEdad.type = "number";
+    inputEdad.id = "edad-grupo-familiar";
+    inputEdad.placeholder = 'por ejemplo: 21';
     
     div.appendChild(labelParentesco);
     labelParentesco.appendChild(inputParentesco);
     div.appendChild(labelEdad);
     labelEdad.appendChild(inputEdad);
 
-
 }
 
+
+
+
+
 function agregarBotonCalcular () {
-    let $boton = document.querySelector("#boton");
+    let $boton = document.querySelector("#calcular-edad");
     let botonCalcular = document.createElement("button");
     botonCalcular.textContent = 'Calcular';
-    botonCalcular.setAttribute("type", "button");
-    botonCalcular.setAttribute("id", "boton-calcular");
+    botonCalcular.type = "button";
+    botonCalcular.id = "boton-calcular-edad";
     $boton.appendChild(botonCalcular);
 }
 
-function hallarEdadMaxima (edades) {
-    let mayorEdad = edades[0];
 
-    for (let edad of edades) {
-        if (edad > mayorEdad) {
-            mayorEdad = edad;        
+
+
+
+function hallarMaximo (array) {
+    let maximo = array[0];
+
+    for (let elemento of array) {
+        if (elemento > maximo) {
+            maximo = elemento;        
         }
     }
 
-    return mayorEdad;
+    return maximo;
 }
 
-function hallarEdadMinima (edades) {
-    let menorEdad = edades[0];
 
-    for (let edad of edades) {
-        if (edad < menorEdad) {
-            menorEdad = edad;
+
+
+
+function hallarMinimo (array) {
+    let minimo = array[0];
+
+    for (let elemento of array) {
+        if (elemento < minimo) {
+            minimo = elemento;
         }
     }
 
-    return menorEdad;
+    return minimo;
 }
+
+
+
+
 
 function calcularPromedio(array) {
-    let promedio;
     let suma = 0;
 
     for (let elemento of array) {
@@ -170,7 +233,11 @@ function calcularPromedio(array) {
     return promedio = suma / array.length;
 }
 
-function mostrarResultadosEnPantalla(mayorEdad, menorEdad, promedioDeEdad, edadesGrupoFamiliar, parentescosGrupoFamiliar) {
+
+
+
+
+function mostrarResultados(mayorEdad, menorEdad, promedioDeEdad, edadesGrupoFamiliar, parentescosGrupoFamiliar) {
     let indiceMayorEdad = edadesGrupoFamiliar.indexOf(mayorEdad);
     let indiceMenorEdad = edadesGrupoFamiliar.indexOf(menorEdad);
 
@@ -182,40 +249,15 @@ function mostrarResultadosEnPantalla(mayorEdad, menorEdad, promedioDeEdad, edade
     
     let $respuestaPromedio = document.querySelector("#respuesta-promedio-edad");
     $respuestaPromedio.textContent = `El promedio de edad de tu grupo familiar es de ${promedioDeEdad}`;
-}
 
-function stateHandle() {
-    if (document.querySelector(".input").value === "") {
-      button.disabled = true; 
-    } else {
-      button.disabled = false;
-    }
+    agregarBotonIngresarSalario()
 }
 
 
-function deshabilitarBotonCalcular() {
-    let $input = document.querySelector("#edad-grupo-familiar");
-    let $boton = document.querySelector("#boton-calcular");
 
-    $boton.disabled = true;
 
-    $input.addEventListener("change", stateHandle);
 
-}
 
-function deshabilitarBotonIngresar() {
-    let $input = document.querySelector("#cantidad-grupo-familiar");
-    let $boton = document.querySelector("#boton-ingresar");
-
-    $boton.disabled = true;
-
-    $input.addEventListener("change", stateHandle);
-}
-
-$h1.onclick = function () {
-    location.reload();
-    return false;
-}
 /*
 
 TAREA:
@@ -226,6 +268,164 @@ salario mensual promedio.
 
 Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como 0).
 */
+
+function agregarBotonIngresarSalario() {
+    let $div = document.querySelector("#ingresar-salario");
+    
+    let boton = document.createElement("button");
+    boton.id = "boton-ingresar-salario";
+    boton.textContent = "Ingresar salario";
+
+    $div.appendChild(boton);
+    ingresarSalario()
+}
+
+
+
+
+
+function ingresarSalario () {
+
+    let $botonIngresarSalario = document.querySelector("#boton-ingresar-salario");
+
+    $botonIngresarSalario.onclick = function () {
+        $botonIngresarSalario.disabled = "true";
+        agregarCamposSalario(parentescosGrupoFamiliar);
+        agregarBotonCalcularSalario();
+        calcularSalario()
+
+        return false;
+    }
+}
+
+
+
+
+
+function agregarCamposSalario(parentescosGrupoFamiliar) {
+    let $form = document.querySelector("#salarios");
+
+    let div = document.createElement("div");
+    div.id = "labels-inputs-salarios";
+
+    $form.appendChild(div);
+
+    for (let i = 0; i < parentescosGrupoFamiliar.length; i++) {
+        let label = document.createElement("label");
+        label.textContent = `Ingrese salario anual de ${parentescosGrupoFamiliar[i]}: `;
+        let input = document.createElement("input");
+        input.id = "salario-anual";
+        input.type = "number";
+
+        label.appendChild(input);
+        div.appendChild(label);
+
+    }
+}
+
+
+
+
+
+function agregarBotonCalcularSalario() {
+    let $div = document.querySelector("#calcular-salario");
+    let botonCalcularSalario = document.createElement("button");
+    botonCalcularSalario.textContent = 'Calcular';
+    botonCalcularSalario.type = "button";
+    botonCalcularSalario.id = "boton-calcular-salario"
+    $div.appendChild(botonCalcularSalario);
+}
+
+
+
+
+
+
+function obtenerSalarios () {
+    let $salarioAnual = document.querySelectorAll("#salario-anual");
+    let salarioGrupoFamiliar = [];
+
+    for (let elemento of $salarioAnual) {
+        salarioGrupoFamiliar.push(elemento.valueAsNumber);
+    }
+
+    return salarioGrupoFamiliar;
+}
+
+
+
+
+
+function calcularSalario () {
+
+    let $botonCalcularSalario = document.querySelector("#boton-calcular-salario");
+
+    $botonCalcularSalario.onclick = function () {
+        deshabilitarBoton("salario-anual", "boton-calcular-salario");
+        salarioGrupoFamiliar = obtenerSalarios();
+
+        let mayorSalarioAnual = hallarMaximo(salarioGrupoFamiliar);
+        let menorSalarioAnual = hallarMinimo(salarioGrupoFamiliar);
+        let promedioSalarioAnual = calcularPromedio(salarioGrupoFamiliar);
+        mostrarResultadosSalario(mayorSalarioAnual, menorSalarioAnual, promedioSalarioAnual);
+
+        return false;
+    }   
+}
+
+
+
+
+
+function mostrarResultadosSalario (mayorSalario, menorSalario, promedioSalario) {
+    let indiceMayorSalario = salarioGrupoFamiliar.indexOf(mayorSalario);
+    let indiceMenorSalario = salarioGrupoFamiliar.indexOf(menorSalario);
+
+    let $respuestaMayorSalario = document.querySelector("#respuesta-mayor-salario");
+    $respuestaMayorSalario.textContent = `El mayor salario lo tiene tu ${parentescosGrupoFamiliar[indiceMayorSalario].toLowerCase()} con $${mayorSalario}.`;
+
+    let $respuestaMenorSalario = document.querySelector("#respuesta-menor-salario");
+    $respuestaMenorSalario.textContent = `El menor salario lo tiene tu ${parentescosGrupoFamiliar[indiceMenorSalario].toLowerCase()} con $${menorSalario}.`;
+
+    let $respuestaPromedio = document.querySelector("#respuesta-promedio-salario");
+    $respuestaPromedio.textContent = `El promedio del salario de tu grupo familiar es de $${promedioSalario}.`;
+}
+
+
+
+
+
+function deshabilitarBoton(idInput, idBoton) {
+    let $input = document.querySelector(`#${idInput}`);
+    let $boton = document.querySelector(`#${idBoton}`);
+
+    $boton.disabled = true;
+
+    $input.addEventListener("change", stateHandle);
+}
+
+
+
+
+
+function stateHandle() {
+    if (document.querySelector(".input").value === "") {
+        button.disabled = true; 
+    } else {
+        button.disabled = false;
+    }
+}
+
+
+
+
+
+$h1.onclick = function () {
+    location.reload();
+    return false;
+}
+
+
 
 
 
