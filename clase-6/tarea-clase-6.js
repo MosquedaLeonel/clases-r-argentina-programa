@@ -348,11 +348,10 @@ function obtenerSalarios () {
 
     for (let elemento of $salarioAnual) {
         if (elemento.value === "") {
-            continue;
-        } else {
-            salarioGrupoFamiliar.push(elemento.valueAsNumber);
+            salarioGrupoFamiliar.push(elemento.value = 0);
+        } else { 
+        salarioGrupoFamiliar.push(elemento.valueAsNumber);
         }
-    
     }
 
     return salarioGrupoFamiliar;
