@@ -316,6 +316,7 @@ function agregarCamposSalario(parentescosGrupoFamiliar) {
         let input = document.createElement("input");
         input.id = "salario-anual";
         input.type = "number";
+        input.value = '';
 
         label.appendChild(input);
         div.appendChild(label);
@@ -346,7 +347,12 @@ function obtenerSalarios () {
     let salarioGrupoFamiliar = [];
 
     for (let elemento of $salarioAnual) {
-        salarioGrupoFamiliar.push(elemento.valueAsNumber);
+        if (elemento.value === "") {
+            continue;
+        } else {
+            salarioGrupoFamiliar.push(elemento.valueAsNumber);
+        }
+    
     }
 
     return salarioGrupoFamiliar;
