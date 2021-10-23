@@ -12,7 +12,6 @@ document.querySelector("#ingresar").onclick = function (event) {
     borrarIntegrantesAnteriores();
 
     const cantidadIntegrantes = document.querySelector("#cantidad-integrantes").value;
-    validarCantidadIntegrantes(cantidadIntegrantes);
     crearIntegrantes(Number(cantidadIntegrantes));
 
     event.preventDefault();
@@ -267,5 +266,8 @@ function validarFormularioEdad(event) {
     console.log(cantidadIntegrantes);
 
     const erroresCantidadIntegrantes = validarCantidadIntegrantes(cantidadIntegrantes);
+    console.log(erroresCantidadIntegrantes);
+
     event.preventDefault();
 }
+
