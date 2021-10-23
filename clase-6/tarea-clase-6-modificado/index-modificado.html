@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main-modificado.css'>
+</head>
+<body>
+    <h1></h1>
+    <h2></h2>
+
+    <form id="calculador-edades" name="formulario-edad">
+        
+        <label>Ingrese cantidad de integrantes de tu familia:
+            <input type="number" id="cantidad-integrantes" name="cantidad-integrantes"/>
+        </label>
+        
+        <button name="submit" id="ingresar">
+            Ingresar
+        </button>
+    
+        <div id="integrantes">
+
+        </div>
+
+        <button class="oculto" id="calcular-edad">Calcular</button>
+    
+
+        <div class="oculto" id="respuestas">
+            <p>La edad mayor es: <strong id="mayor-edad"></strong></p>
+            <p>La edad menor es: <strong id="menor-edad"></strong></p>
+            <p>El promedio de edad es: <strong id="promedio-edad"></strong></p>
+        </div>
+
+        <button type="reset" id="resetear">Resetear</button>
+
+    </form>
+
+    <form id="calculador-salario" name="formulario-salario">
+        <button type="submit" class="oculto" id="siguiente">Ingresar salario</button>
+
+        <div id="integrantes-salario">
+
+        </div>
+
+        <button type="button" class="oculto" id="calcular-salario">Calcular</button>
+
+        <div class="oculto" id="respuestas-salarios">
+            <p>El salario mayor es: <strong id="mayor-salario"></strong></p>
+            <p>El salario menor es: <strong id="menor-salario"></strong></p>
+            <p>El promedio de salario es: <strong id="promedio-salario"></strong></p>
+        </div>
+
+    </form>
+    
+    <script type="text/javascript" src='tarea-clase-6-modificado.js'></script>
+    <script type="text/javascript" src="calculo-modificado.js"></script>
+    <script type="text/javascript" src="pruebas.js"></script>
+</body>
+</html>
