@@ -9,11 +9,12 @@ Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuev
 
 
 document.querySelector("#ingresar").onclick = function (event) {
-    const cantidadIntegrantes = document.querySelector("#cantidad-integrantes").value;
-    
     borrarIntegrantesAnteriores();
+
+    const cantidadIntegrantes = document.querySelector("#cantidad-integrantes").value;
+    validarCantidadIntegrantes(cantidadIntegrantes);
     crearIntegrantes(Number(cantidadIntegrantes));
-    
+
     event.preventDefault();
 }
 
@@ -256,22 +257,15 @@ function validarSalarioIntegrante(salarioIntegrante) {
     return ''
 }
 
-function validarFormularioEdad (event){
-    const cantidadIntegrantes = document.querySelector("#cantidad-integrantes").value;
-    
-    const errorCantidadIntegrantes = validarCantidadIntegrantes(cantidadIntegrantes);
-    console.log(errorCantidadIntegrantes);
-    
-    event.preventDefault();
-}
-
 const $formEdades = document.querySelector("#calculador-edades");
 $formEdades.onsubmit = validarFormularioEdad;
 
 function validarFormularioEdad(event) {
     const $form = document.querySelector('[name=formulario-edad]');
 
-    const cantidadIntegrantes = $form['[name=cantidad-integrantes]'];
+    const cantidadIntegrantes = $form['[name=cantidad-integrantes]'].value;
     console.log(cantidadIntegrantes);
+
+    const erroresCantidadIntegrantes = validarCantidadIntegrantes(cantidadIntegrantes);
     event.preventDefault();
 }

@@ -259,7 +259,6 @@ function mostrarResultados(mayorEdad, menorEdad, promedioDeEdad, edadesGrupoFami
 
 
 /*
-
 TAREA:
 Crear una interfaz que permita agregar ó quitar (botones agregar y quitar) inputs+labels para completar el salario anual de cada integrante 
 de la familia que trabaje.
