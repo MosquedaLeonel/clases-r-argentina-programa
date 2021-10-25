@@ -10,20 +10,55 @@ Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuev
 
 document.querySelector("#ingresar").onclick = function (event) {
     borrarIntegrantesAnteriores();
-
+    
     const cantidadIntegrantes = document.querySelector("#cantidad-integrantes").value;
-    crearIntegrantes(Number(cantidadIntegrantes));
+
+    const errorCantidadIntegrantes = validarCantidadIntegrantes(Number(cantidadIntegrantes));
+
+    if (errorCantidadIntegrantes) {
+        errores["cantidad-integrantes"] = errorCantidadIntegrantes;
+        manejarErrores('edades', errores);
+    } else {
+        delete errores["cantidad-integrantes"];
+        document.querySelector("#cantidad-integrantes").className = '';
+        crearIntegrantes(Number(cantidadIntegrantes));
+    }
 
     event.preventDefault();
 }
 
 document.querySelector("#calcular-edad").onclick = function (event) {
     const edades = obtenerEdadesIntegrantes();
-    mostrarEdad('mayor', hallarMaximo(edades));
-    mostrarEdad('menor', hallarMinimo(edades));
-    mostrarEdad('promedio', hallarPromedio(edades));
-    mostrarResultados();
-    mostrarBotonSiguiente();
+    let contador = 0;
+    
+
+    edades.forEach(function(edad) {
+        document.querySelector(`#edad-integrante-${contador + 1}`).className = '';
+        let errorEdadIntegrante = validarEdadIntegrante(edad);
+
+        if (errorEdadIntegrante) {
+            errores[`edad-integrante-${contador + 1}`] = errorEdadIntegrante;
+            contador++;
+            ocultarResultados();
+            ocultarBotonSiguiente();
+            ocultarResultadosSalario();
+            borrarIntegrantesAnterioresSalario();
+            ocultarBotonCalculoSalario();
+        } else {
+            delete errores[`edad-integrante-${contador + 1}`];
+            contador++;
+        }
+    });  
+
+    const esExito = manejarErrores(`edades`, errores) === 0;
+        
+        if (esExito) {
+            mostrarEdad('mayor', hallarMaximo(edades));        
+            mostrarEdad('menor', hallarMinimo(edades));
+            mostrarEdad('promedio', hallarPromedio(edades));
+            mostrarResultados();
+            mostrarBotonSiguiente();
+        }
 
     event.preventDefault();
 }
@@ -52,7 +87,7 @@ function crearIntegrante (indice) {
     $label.textContent = `Ingrese la edad del integrante numero ${indice + 1}: `;
     const $input = document.createElement("input");
     $input.type = "number";
-    $input.name = 'edad-integrante';
+    $input.id = `edad-integrante-${indice + 1}`;
     
     $div.appendChild($label);
     $div.appendChild($input);
@@ -62,6 +97,7 @@ function crearIntegrante (indice) {
 }   
 
 function borrarIntegrantesAnteriores () {
+    delete errores['cantidad-integrantes'];
     const $integrantes = document.querySelectorAll(".integrante");
 
     for (let i = 0; i < $integrantes.length; i++) {
@@ -104,9 +140,8 @@ function obtenerEdadesIntegrantes () {
     const edades = [];
 
     for (let i = 0;i < $integrantes.length; i++) {
-        edades.push($integrantes[i].valueAsNumber);
+        edades.push($integrantes[i].value);
     }
-    
     return edades;
 }
 
@@ -160,7 +195,7 @@ function crearCampoSalarioIntegrante (indice) {
     $label.textContent = `Ingrese el salario anual de la persona numero ${indice + 1}:`;
     const $input = document.createElement("input");
     $input.type = 'number';
-    $input.name = 'salario-integrante';
+    $input.id = `salario-integrante-${indice + 1}`;
     
     $div.appendChild($label);
     $div.appendChild($input);
@@ -170,12 +205,33 @@ function crearCampoSalarioIntegrante (indice) {
 }
 
 document.querySelector("#calcular-salario").onclick = function (event) {
+    let contador = 0;
     const salarios = obtenerSalarios();
+
+    salarios.forEach(function(salario){
+        document.querySelector(`#salario-integrante-${contador + 1}`).className = '';
+        let errorSalarioIntegrante = validarSalarioIntegrante(salario);
+
+        if (errorSalarioIntegrante) {
+            errores[`salario-integrante-${contador + 1}`] = errorSalarioIntegrante;
+            contador++;
+            ocultarBotonCalculoSalario();
+            ocultarResultadosSalario();
+            borrarIntegrantesAnterioresSalario();
+        } else {
+            delete errores[`salario-integrante-${contador + 1}`];
+            contador++;
+        }
+    });
     
-    mostrarSalario('mayor', hallarMaximo(salarios));
-    mostrarSalario('menor', hallarMinimo(salarios));
-    mostrarSalario('promedio', hallarPromedio(salarios));
-    mostrarResultadosSalario();
+    const esExito = manejarErrores(`salario`, errores) === 0;
+
+    if (esExito) {
+        mostrarSalario('mayor', hallarMaximo(salarios));
+        mostrarSalario('menor', hallarMinimo(salarios));
+        mostrarSalario('promedio', hallarPromedio(salarios));
+        mostrarResultadosSalario();
+    }
 
     event.preventDefault();
 }
@@ -186,10 +242,11 @@ function obtenerSalarios () {
 
     for (let salario of $salarios) {
         if (salario.value !== "") {
-            salarios.push(salario.valueAsNumber);
+            salarios.push(salario.value);
+        } else {
+            salarios.push(0); 
         }
     }
-    
     return salarios;
 }
 
@@ -256,18 +313,21 @@ function validarSalarioIntegrante(salarioIntegrante) {
     return ''
 }
 
-const $formEdades = document.querySelector("#calculador-edades");
-$formEdades.onsubmit = validarFormularioEdad;
+let errores = {};
 
-function validarFormularioEdad(event) {
-    const $form = document.querySelector('[name=formulario-edad]');
+function manejarErrores(tipo, errores) {
+    const $form = document.querySelector(`#calculador-${tipo}`);
+    const keys = Object.keys(errores);
+    contadorErrores = 0;
+    
+    keys.forEach(function(key){
+        const error = errores[key];
 
-    const cantidadIntegrantes = $form['[name=cantidad-integrantes]'].value;
-    console.log(cantidadIntegrantes);
+        if (error) {
+            $form[key].className = 'error';
+            contadorErrores++;
+        }
+    })
 
-    const erroresCantidadIntegrantes = validarCantidadIntegrantes(cantidadIntegrantes);
-    console.log(erroresCantidadIntegrantes);
-
-    event.preventDefault();
+    return contadorErrores;
 }
-

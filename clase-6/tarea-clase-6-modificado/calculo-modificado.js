@@ -1,9 +1,9 @@
 function hallarMaximo (array) {
-    let maximo = array[0];
+    let maximo = Number(array[0]);
 
     for (let numero of array) {
-        if (numero > maximo) {
-            maximo = numero;
+        if (Number(numero) > maximo) {
+            maximo = Number(numero);
         }
     }
 
@@ -11,11 +11,11 @@ function hallarMaximo (array) {
 }
 
 function hallarMinimo(array) {
-    let minimo = array[0];
+    let minimo = Number(array[0]);
 
     for (let numero of array) {
-        if (numero < minimo) {
-            minimo = numero;
+        if (Number(numero) < minimo) {
+            minimo = Number(numero);
         }
     }
 
@@ -26,7 +26,7 @@ function hallarPromedio(array) {
     let promedio;
     let suma = 0;
     for (let numero of array) {
-        suma += numero;
+        suma += Number(numero);
     }
 
     return promedio = suma / array.length;
